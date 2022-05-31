@@ -16,3 +16,5 @@ ZPanel is licensed under the GNU GENERAL PUBLIC LICENSE (GPL v3) you can view a 
 1. Set correct database credentials in "cnf/db.php"
 
 2. Import into database correct file with .sql extension form "etc\build\config_packs" folder
+
+3. Set up password for "zadmin" user via "php setzadmin --set <password>" command in "bin" folder
