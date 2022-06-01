@@ -57,7 +57,9 @@
   {
    var $Data;
 
-   var $Palette = array("0"=>array("R"=>188,"G"=>224,"B"=>46,"Alpha"=>100),
+   public function __construct()
+   {
+    $this->Palette = array("0"=>array("R"=>188,"G"=>224,"B"=>46,"Alpha"=>100),
                         "1"=>array("R"=>224,"G"=>100,"B"=>46,"Alpha"=>100),
                         "2"=>array("R"=>224,"G"=>214,"B"=>46,"Alpha"=>100),
                         "3"=>array("R"=>46,"G"=>151,"B"=>224,"Alpha"=>100),
@@ -65,6 +67,8 @@
                         "5"=>array("R"=>224,"G"=>46,"B"=>117,"Alpha"=>100),
                         "6"=>array("R"=>92,"G"=>224,"B"=>46,"Alpha"=>100),
                         "7"=>array("R"=>224,"G"=>176,"B"=>46,"Alpha"=>100));
+   }
+   
 
    /* Class creator */
    function pData()
@@ -528,7 +532,7 @@
    function loadPalette($FileName,$Overwrite=FALSE)
     {
      if ( !file_exists($FileName) ) { return(-1); }
-     if ( $Overwrite ) { $this->Palette = ""; }
+     if ( $Overwrite ) { $this->Palette = []; }
 
      $fileHandle = @fopen($FileName, "r");
      if (!$fileHandle) { return(-1); }
@@ -538,8 +542,7 @@
        if ( preg_match("/,/",$buffer) )
         {
          list($R,$G,$B,$Alpha) = preg_split("/,/",$buffer);
-         if ( $this->Palette == "" ) { $ID = 0; } else { $ID = count($this->Palette); }
-         $this->Palette[$ID] = array("R"=>$R,"G"=>$G,"B"=>$B,"Alpha"=>$Alpha);
+         $this->Palette[] = array("R"=>$R,"G"=>$G,"B"=>$B,"Alpha"=>$Alpha);
         }
       }
      fclose($fileHandle);
@@ -775,7 +778,11 @@
 
    /* Convert a string to a single elements array */
    function convertToArray($Value)
-    { $Values = ""; $Values[] = $Value; return($Values); }
+    { 
+      $arr = preg_split('/[.]*/', $Value);
+      array_shift($arr);
+      array_pop($arr);
+      return $arr; }
 
    /* Class string wrapper */
    function __toString()

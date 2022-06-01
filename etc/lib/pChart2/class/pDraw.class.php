@@ -102,6 +102,12 @@
 
  class pDraw
   {
+
+    function __construct()
+    {
+      $this->Picture = imagecreatetruecolor(114,16);
+    }
+
    /* Returns the number of drawable series */
    function countDrawableSeries()
     {
