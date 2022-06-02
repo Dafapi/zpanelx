@@ -36,13 +36,13 @@
    var $LabelPos = "" ;
 
    /* Class creator */
-   function pPie($Object,$pDataObject)
+   function __construct($Object,$pDataObject)
     {
      /* Cache the pChart object reference */
      $this->pChartObject = $Object;
 
      /* Cache the pData object reference */
-     $this->pDataObject  = $pDataObject;
+     $this->pDataObject  = $pDataObject ?? throw new Error("No data object provided");
     }
 
    /* Draw a pie chart */
@@ -353,7 +353,7 @@
      if ( $SerieSum == 0 ) { return(PIE_SUMISNULL); }
 
      /* Dump the real number of data to draw */
-     $Values = "";
+     $Values = [];
      foreach ($Data["Series"][$DataSerie]["Data"] as $Key => $Value)
       { if ($Value != 0) { $Values[] = $Value; } }
 
@@ -370,7 +370,7 @@
      $Step   = 360 / (2 * PI * $Radius);
      $Offset = 360; $ID = count($Values)-1;
      $Values = array_reverse($Values);
-     $Slice  = 0; $Slices = ""; $SliceColors = ""; $Visible = ""; $SliceAngle = "";
+     $Slice  = 0; $Slices = []; $SliceColors = []; $Visible = []; $SliceAngle = [];
      foreach($Values as $Key => $Value)
       {
        if ( !isset($Palette[$ID]["R"]) ) { $Color = $this->pChartObject->getRandomColor(); $Palette[$ID] = $Color; $this->pDataObject->savePalette($ID,$Color); }
@@ -415,7 +415,7 @@
       {
        foreach($Slices as $SliceID => $Plots)
         {
-         $ShadowPie = "";
+         $ShadowPie = [];
          for($i=0;$i<count($Plots);$i=$i+2)
           { $ShadowPie[] = $Plots[$i]+$this->pChartObject->ShadowX; $ShadowPie[] = $Plots[$i+1]+$this->pChartObject->ShadowY; }
 
@@ -479,7 +479,7 @@
        if ( $Visible[$SliceID]["Start"] && isset($Plots[2])) /* Empty error handling */
         {
          $this->pChartObject->drawLine($Plots[2],$Plots[3],$Plots[2],$Plots[3]- $SliceHeight,array("R"=>$Settings["R"],"G"=>$Settings["G"],"B"=>$Settings["B"]));
-         $Border = "";
+         $Border = [];
          $Border[] = $Plots[0]; $Border[] = $Plots[1]; $Border[] = $Plots[0]; $Border[] = $Plots[1] - $SliceHeight;
          $Border[] = $Plots[2]; $Border[] = $Plots[3] - $SliceHeight; $Border[] = $Plots[2]; $Border[] = $Plots[3]; 
          $this->pChartObject->drawPolygon($Border,$Settings);
@@ -496,7 +496,7 @@
         {
          $this->pChartObject->drawLine($Plots[count($Plots)-2],$Plots[count($Plots)-1],$Plots[count($Plots)-2],$Plots[count($Plots)-1]- $SliceHeight,array("R"=>$Settings["R"],"G"=>$Settings["G"],"B"=>$Settings["B"]));
 
-         $Border = "";
+         $Border = [];
          $Border[] = $Plots[0]; $Border[] = $Plots[1]; $Border[] = $Plots[0]; $Border[] = $Plots[1] - $SliceHeight;
          $Border[] = $Plots[count($Plots)-2]; $Border[] = $Plots[count($Plots)-1] - $SliceHeight; $Border[] = $Plots[count($Plots)-2]; $Border[] = $Plots[count($Plots)-1]; 
          $this->pChartObject->drawPolygon($Border,$Settings);
@@ -514,7 +514,7 @@
          $Angle = $SliceAngle[$SliceID][$j/2];
          if ( $Angle < 270 && $Angle > 90 )
           {
-           $Border = "";
+           $Border = [];
            $Border[] = $Plots[$j];   $Border[] = $Plots[$j+1];
            $Border[] = $Plots[$j+2]; $Border[] = $Plots[$j+3];
            $Border[] = $Plots[$j+2]; $Border[] = $Plots[$j+3] - $SliceHeight;
@@ -571,7 +571,7 @@
        $Settings = $SliceColors[$SliceID];
        $Settings["R"]+= 20; $Settings["G"]+= 20; $Settings["B"]+= 20;
 
-       $Top = "";
+       $Top = [];
        for($j=0;$j<count($Plots);$j=$j+2) { $Top[] = $Plots[$j]; $Top[] = $Plots[$j+1]- $SliceHeight; }
        $this->pChartObject->drawPolygon($Top,$Settings);
 
@@ -729,7 +729,7 @@
      /* Do we have an abscissa serie defined? */
      if ( $Data["Abscissa"] == "" ) { return(PIE_NO_ABSCISSA); }
 
-     $Boundaries = ""; $Boundaries["L"] = $X; $Boundaries["T"] = $Y; $Boundaries["R"] = 0; $Boundaries["B"] = 0; $vY = $Y; $vX = $X;
+     $Boundaries = []; $Boundaries["L"] = $X; $Boundaries["T"] = $Y; $Boundaries["R"] = 0; $Boundaries["B"] = 0; $vY = $Y; $vX = $X;
      foreach($Data["Series"][$Data["Abscissa"]]["Data"] as $Key => $Value)
       {
        $BoxArray = $this->pChartObject->getTextBox($vX+$BoxSize+4,$vY+$BoxSize/2,$FontName,$FontSize,0,$Value);
@@ -1475,7 +1475,7 @@
   /* Remove unused series & values */
   function clean0Values($Data,$Palette,$DataSerie,$AbscissaSerie)
    {
-    $NewPalette = ""; $NewData = ""; $NewAbscissa = "";
+    $NewPalette = []; $NewData = []; $NewAbscissa = [];
 
     /* Remove unused series */
     foreach($Data["Series"] as $SerieName => $SerieSettings)

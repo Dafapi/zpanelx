@@ -541,12 +541,16 @@
        $buffer = fgets($fileHandle, 4096);
        if ( preg_match("/,/",$buffer) )
         {
-         list($R,$G,$B,$Alpha) = preg_split("/,/",$buffer);
+         $Alpha = "";
+         if (count(preg_split("/,/",$buffer)) == 4) list($R,$G,$B,$Alpha) = preg_split("/,/",$buffer);
+         else {
+          list($R,$G,$B) = preg_split("/,/",$buffer);
+          $Alpha = "0";
+         }
          $this->Palette[] = array("R"=>$R,"G"=>$G,"B"=>$B,"Alpha"=>$Alpha);
         }
       }
      fclose($fileHandle);
-
      /* Apply changes to current series */
      $ID = 0;
      if ( isset($this->Data["Series"]))
