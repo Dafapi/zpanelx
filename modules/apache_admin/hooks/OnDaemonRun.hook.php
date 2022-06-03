@@ -66,7 +66,7 @@ function WriteVhostConfigFile()
         $serveremail = "postmaster@" . ctrl_options::GetSystemOption( 'zpanel_domain' );
     }
 
-    $customPort = array( );
+    $customPorts = array( );
     $portQuery  = $zdbh->prepare( "SELECT vh_custom_port_in, vh_deleted_ts FROM zpanel_core.x_vhosts WHERE vh_custom_port_in IS NOT NULL AND vh_deleted_ts IS NULL" );
     $portQuery->execute();
     while ( $rowport    = $portQuery->fetch() ) {
@@ -445,7 +445,7 @@ function WriteVhostConfigFile()
             $returnValue = ctrl_system::systemCommand(
                     ctrl_options::GetSystemOption( 'httpd_exe' ), ctrl_options::GetSystemOption( 'apache_restart' )
             );
-            echo "Apache reload" . ((0 === $returnValue ) ? "suceeded" : "failed") . "." . fs_filehandler::NewLine();
+            echo "Apache reload " . ((0 === $returnValue ) ? "suceeded" : "failed") . "." . fs_filehandler::NewLine();
         }
         else {
             
@@ -538,6 +538,7 @@ function TriggerApacheQuotaUsage()
             $findsize->bindParam( ':acc', $rowvhost[ 'vh_acc_fk' ] );
             $findsize->execute();
             $checksize = $findsize->fetch();
+            if(!$checksize) continue;
 
             $currentuser = ctrl_users::GetUserDetail( $rowvhost[ 'vh_acc_fk' ] );
             if ( $checksize[ 'bd_diskover_in' ] != $checksize[ 'bd_diskcheck_in' ] && $checksize[ 'bd_diskover_in' ] == 1 ) {
