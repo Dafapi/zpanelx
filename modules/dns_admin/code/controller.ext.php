@@ -1057,15 +1057,15 @@ class module_controller extends ctrl_module
                 }fclose($handle);
                 if (!fs_director::CheckForEmptyValue($logerror)) {
                     self::$logerror = $logerror;
-                }
+                } else self::$logerror = [];
                 if (!fs_director::CheckForEmptyValue($logwarning)) {
                     self::$logwarning = $logwarning;
-                }
+                } else self::$logwarning = [];
                 if (!fs_director::CheckForEmptyValue($getlog)) {
                     self::$getlog = $getlog;
-                }
+                } else self::$getlog = [];
             }
-        }
+        }        
     }
 
     static function getResult()

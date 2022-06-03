@@ -392,12 +392,14 @@ class module_controller extends ctrl_module
         $sql = $zdbh->prepare("SELECT * FROM x_vhosts WHERE vh_acc_fk=:userid AND vh_type_in !=2 AND vh_deleted_ts IS NULL");
         $sql->bindParam(':userid', $currentuser['userid']);
         $sql->execute();
+        $viIdPk;
         while ($rowdomains = $sql->fetch()) {
+            if (empty($viIdPk) ) {$viIdPk = $rowdomains['vh_id_pk'];}
             $line .= "<option value=\"" . $rowdomains['vh_id_pk'] . "\">" . $rowdomains['vh_name_vc'] . "</option>";
         }
         $line .= "</select></td>";
         $line .= "<td>";
-        $line .= '<button type="submit" class="btn btn-large btn-primary" name="inSelect" value="' . $rowdomains['vh_id_pk'] . '"><i class="glyphicon glyphicon-pencil"></i>  ' . ui_language::translate("Edit") . '</button>';
+        $line .= '<button type="submit" class="btn btn-large btn-primary" name="inSelect" value="' . $viIdPk . '"><i class="glyphicon glyphicon-pencil"></i>  ' . ui_language::translate("Edit") . '</button>';
         $line .= '</td>';
         $line .= '</tr>';
         $line .= '</table>';

@@ -35,7 +35,7 @@ class ui_moduleloader {
         if($catname != '') $numrows->bindParam(':catname', $catname);
         $numrows->execute();
 
-        if ($numrows->fetchColumn() <> 0) {
+        if ($numrows->fetch() != false) {
             $sql = $zdbh->prepare($sql);
             if($catname != '') $sql->bindParam(':uid', $uid);
             $res = array();
