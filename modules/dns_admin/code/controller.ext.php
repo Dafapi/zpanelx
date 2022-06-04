@@ -1065,7 +1065,11 @@ class module_controller extends ctrl_module
                     self::$getlog = $getlog;
                 } else self::$getlog = [];
             }
-        }        
+        } else {
+            self::$logerror = [];
+            self::$logwarning = [];
+            self::$getlog = [];
+        }
     }
 
     static function getResult()
