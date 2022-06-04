@@ -174,9 +174,9 @@ if (!fs_director::CheckForEmptyValue(self::$create)) {
 											 	0,
 											 	'',
 											 	'',
-											 	'',
+											 	now(),
 											 	0,
-											 	'',
+											 	now(),
 											 	'',
 											 	'')";
         $sql = $mail_db->prepare($sql);
