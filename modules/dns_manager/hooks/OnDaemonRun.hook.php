@@ -131,7 +131,7 @@ function WriteDNSNamedHook()
     $named_file = ctrl_options::GetSystemOption('named_dir') . "/" . ctrl_options::GetSystemOption('named_conf');
     echo "Updating " . $named_file . fs_filehandler::NewLine();
     // Now we have all domain ID's, loop through them and find records for each zone file.
-    $line = "";
+    $line = "\n/// ZPanel gereated\n\n";
     foreach ($domains as $domain) {
         echo "CHECKING ZONE FILE: " . ctrl_options::GetSystemOption('zone_dir') . "/" . $domain . ".txt..." . fs_filehandler::NewLine();
 
@@ -154,7 +154,12 @@ function WriteDNSNamedHook()
             echo "Syntax ERROR. Skipping zone record." . fs_filehandler::NewLine();
         }
     }
-    fs_filehandler::UpdateFile($named_file, 0777, $line);
+    $oldData = fs_filehandler::ReadFileContents($named_file);
+    $pointer = strpos($oldData, "/// ZPanel gereated");
+    
+    if ($pointer) $oldData = substr($oldData, 0, $pointer-1).$line;
+    else $oldData .= $line;
+    fs_filehandler::UpdateFile($named_file, 0777, $oldData);
 }
 
 function ResetDNSRecordsUpatedHook()
@@ -183,7 +188,7 @@ function PurgeOldZoneDNSRecordsHook()
         if (!in_array(substr($zonefile, 0, -4), $domains) && $zonefile != "." && $zonefile != "..") {
             if (file_exists(ctrl_options::GetSystemOption('zone_dir'). "/" . $zonefile)) {
                 echo "Purging old zone record from disk: " . substr($zonefile, 0, -4) . fs_filehandler::NewLine();
-                unlink(ctrl_options::GetSystemOption('zone_dir') . "/" . $zonefile);
+                @unlink(ctrl_options::GetSystemOption('zone_dir') . "/" . $zonefile);
             }
         }
     }
