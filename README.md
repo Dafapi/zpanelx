@@ -23,6 +23,8 @@ Feel free to use it on local enviroment.
 
 Below you can find installation example for diffrent path than default one (`C:/zpanel`)
 
+**_!!! Using spaces in direcotries names may produce errors in panel usage !!!_**
+
 ### On windows
 
 Packages versions used during testing:

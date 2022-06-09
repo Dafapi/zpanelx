@@ -21,16 +21,17 @@ class ctrl_system
      */
     static function systemCommand($command, $args)
     {
-        $escapedCommand = '"' . $command . '"';
+        $escapedCommand = $command;
         if (is_array($args)) {
             foreach ($args as $arg) {
-                $escapedCommand .= ' "' . $arg . '"';
+                $escapedCommand .= ' ' . $arg;
             }
         } else {
-            $escapedCommand .= ' "' . $args . '"';
+            $escapedCommand .= ' ' . $args;
         }
+        $escapedCommand = escapeshellcmd($escapedCommand);
+        echo $escapedCommand;
         system($escapedCommand, $systemReturnValue);
         return $systemReturnValue;
     }
-
 }

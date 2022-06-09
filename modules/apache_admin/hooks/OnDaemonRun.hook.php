@@ -106,8 +106,7 @@ function WriteVhostConfigFile()
     $line .= "<Directory \"" . ctrl_options::GetSystemOption( 'zpanel_root' ) . "\">" . fs_filehandler::NewLine();
     $line .= "Options FollowSymLinks" . fs_filehandler::NewLine();
     $line .= "	AllowOverride All" . fs_filehandler::NewLine();
-    $line .= "	Order allow,deny" . fs_filehandler::NewLine();
-    $line .= "	Allow from all" . fs_filehandler::NewLine();
+    $line .= "	Require all granted" . fs_filehandler::NewLine();
     $line .= "</Directory>" . fs_filehandler::NewLine();
     $line .= "" . fs_filehandler::NewLine();
     $line .= "# Custom settings are loaded below this line (if any exist)" . fs_filehandler::NewLine();
@@ -202,8 +201,7 @@ function WriteVhostConfigFile()
                 $line .= "<Directory />" . fs_filehandler::NewLine();
                 $line .= "Options FollowSymLinks Indexes" . fs_filehandler::NewLine();
                 $line .= "AllowOverride All" . fs_filehandler::NewLine();
-                $line .= "Order Allow,Deny" . fs_filehandler::NewLine();
-                $line .= "Allow from all" . fs_filehandler::NewLine();
+                $line .= "Require all granted" . fs_filehandler::NewLine();
                 $line .= "</Directory>" . fs_filehandler::NewLine();
                 $line .= ctrl_options::GetSystemOption( 'php_handler' ) . fs_filehandler::NewLine();
                 $line .= ctrl_options::GetSystemOption( 'dir_index' ) . fs_filehandler::NewLine();
@@ -236,8 +234,7 @@ function WriteVhostConfigFile()
                 $line .= "<Directory />" . fs_filehandler::NewLine();
                 $line .= "Options FollowSymLinks Indexes" . fs_filehandler::NewLine();
                 $line .= "AllowOverride All" . fs_filehandler::NewLine();
-                $line .= "Order Allow,Deny" . fs_filehandler::NewLine();
-                $line .= "Allow from all" . fs_filehandler::NewLine();
+                $line .= "Require all granted" . fs_filehandler::NewLine();
                 $line .= "</Directory>" . fs_filehandler::NewLine();
                 $line .= ctrl_options::GetSystemOption( 'php_handler' ) . fs_filehandler::NewLine();
                 $line .= ctrl_options::GetSystemOption( 'dir_index' ) . fs_filehandler::NewLine();
@@ -269,8 +266,7 @@ function WriteVhostConfigFile()
                 $line .= "<Directory />" . fs_filehandler::NewLine();
                 $line .= "Options FollowSymLinks Indexes" . fs_filehandler::NewLine();
                 $line .= "AllowOverride All" . fs_filehandler::NewLine();
-                $line .= "Order Allow,Deny" . fs_filehandler::NewLine();
-                $line .= "Allow from all" . fs_filehandler::NewLine();
+                $line .= "Require all granted" . fs_filehandler::NewLine();
                 $line .= "</Directory>" . fs_filehandler::NewLine();
                 $line .= ctrl_options::GetSystemOption( 'php_handler' ) . fs_filehandler::NewLine();
                 $line .= ctrl_options::GetSystemOption( 'dir_index' ) . fs_filehandler::NewLine();
@@ -334,8 +330,7 @@ function WriteVhostConfigFile()
                 $line .= "<Directory />" . fs_filehandler::NewLine();
                 $line .= "Options FollowSymLinks Indexes" . fs_filehandler::NewLine();
                 $line .= "AllowOverride All" . fs_filehandler::NewLine();
-                $line .= "Order Allow,Deny" . fs_filehandler::NewLine();
-                $line .= "Allow from all" . fs_filehandler::NewLine();
+                $line .= "Require all granted" . fs_filehandler::NewLine();
                 $line .= "</Directory>" . fs_filehandler::NewLine();
 
                 // Get Package php and cgi enabled options
@@ -412,8 +407,7 @@ function WriteVhostConfigFile()
             $line .= "<Directory />" . fs_filehandler::NewLine();
             $line .= "Options FollowSymLinks Indexes" . fs_filehandler::NewLine();
             $line .= "AllowOverride All" . fs_filehandler::NewLine();
-            $line .= "Order Allow,Deny" . fs_filehandler::NewLine();
-            $line .= "Allow from all" . fs_filehandler::NewLine();
+            $line .= "Require all granted" . fs_filehandler::NewLine();
             $line .= "</Directory>" . fs_filehandler::NewLine();
             $line .= ctrl_options::GetSystemOption( 'dir_index' ) . fs_filehandler::NewLine();
             $line .= "</virtualhost>" . fs_filehandler::NewLine();
