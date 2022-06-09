@@ -366,6 +366,8 @@ In my case FTP server will be installed in `Z:/hMail` direcotry
 
 2. Go to `zpanel.localhost/etc/apps/webmail/installer/` and install WebMail module
 
+3. Add file located in zpanel `bin/daemon.php` to run every few minutes (It is responsible for applying changes). Runing `bin/daemon.bat` (as Administrator) is alternative way
+
 ## Planned changes and new features
 
 -   support for new Filezilla Server
